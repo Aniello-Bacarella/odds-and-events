@@ -16,7 +16,7 @@ function inputForm() {
   document.body.append(app);
 }
 
-//creatiung the display area for the number bank.
+//creating the input area for the number bank.
 function createForm() {
   const form = document.createElement("form");
   const input = document.createElement("input");
