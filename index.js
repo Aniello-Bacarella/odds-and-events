@@ -1,6 +1,3 @@
-inputForm();
-render();
-
 let state = {
   repository: [],
   oddNumbers: [],
@@ -55,8 +52,66 @@ function createControls() {
   sortAll.innerText = "Sort All";
   sortAll.addEventListener("click", () => {
     sortAllnumbers();
-
-    controls.append(sortOne);
-    controls.append(sortAll);
   });
+  controls.append(sortOne);
+  controls.append(sortAll);
+  return controls;
 }
+
+// creating the display area.
+function createDisplay() {
+  const display = document.createElement("div");
+  display.id = "display";
+  return display;
+}
+
+function placeNumber(number) {
+  if (number % 2 === 0) {
+    state.evenNumbers.push(number);
+  } else {
+    state.oddNumbers.push(number);
+  }
+}
+
+function addNumber(value) {
+  state.repository.push(value);
+  render();
+}
+
+function sortOnenumber() {
+  if (state.repository.length > 0) {
+    const number = state.repository.shift();
+    placeNumber(number);
+    render();
+  }
+}
+
+function sortAllnumbers() {
+  while (state.repository.length > 0) {
+    const number = state.repository.shift();
+    placeNumber(number);
+  }
+  render();
+}
+
+// rendering the numbers in the display
+function render() {
+  const display = document.getElementById("display");
+  display.innerText = "";
+
+  const repository = document.createElement("div");
+  repository.innerText = `Number Bank: ${state.repository.join(", ")}`;
+
+  const oddNumbers = document.createElement("div");
+  oddNumbers.innerText = `Odd Numbers: ${state.oddNumbers.join(", ")}`;
+
+  const evenNumbers = document.createElement("div");
+  evenNumbers.innerText = `Even Numbers: ${state.evenNumbers.join(", ")}`;
+
+  display.append(repository);
+  display.append(oddNumbers);
+  display.append(evenNumbers);
+}
+
+inputForm();
+render();
